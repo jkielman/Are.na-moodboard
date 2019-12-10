@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.4.2",
     "react-flexbox-grid": "^2.1.2",
     "react-resizable-rotatable-draggable": "^0.2.0",
     "react-router-dom": "^4.3.1",
