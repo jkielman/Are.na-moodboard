@@ -1,73 +1,69 @@
-
-console.log("hello");
-
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import { Grid, Row, Col } from "react-flexbox-grid";
-import ScrollToTop from "react-router-scroll-top";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import ScrollToTop from 'react-router-scroll-top';
 import ResizableRect from 'react-resizable-rotatable-draggable'
-import "./style.scss";
+import './style.scss';
 
 const atmosData = [
   {
    width:100,
    height:100,
    top:200,
-   left:100
+   left:300
   },
   {
    width:100,
    height:100,
    top:400,
-   left:400
+   left:300
   }
 ];
 
 class Atmos extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       width: this.props.width,
       height: this.props.height,
       top: this.props.top,
       left: this.props.left,
       rotateAngle: 0
-    }
+    };
   }
 
   handleResize = (style, isShiftKey, type) => {
-    let { top, left, width, height } = style
-    top = Math.round(top)
-    left = Math.round(left)
-    width = Math.round(width)
-    height = Math.round(height)
+    let { top, left, width, height } = style;
+    top = Math.round(top);
+    left = Math.round(left);
+    width = Math.round(width);
+    height = Math.round(height);
     this.setState({
       top,
       left,
       width,
       height
-    })
-  }
+    });
+  };
 
-  handleRotate = (rotateAngle) => {
+  handleRotate = rotateAngle => {
     this.setState({
       rotateAngle
-    })
-  }
+    });
+  };
 
   handleDrag = (deltaX, deltaY) => {
     this.setState({
       left: this.state.left + deltaX,
       top: this.state.top + deltaY
-    })
-  }
-
+    });
+  };
 
   render() {
-    const {width, top, left, height, rotateAngle} = this.state
+    const { width, top, left, height, rotateAngle } = this.state;
     return (
-      <div className="App">
+      <div className='App'>
         <ResizableRect
           left={left}
           top={top}
@@ -83,64 +79,74 @@ class Atmos extends React.Component {
           onDragEnd={this.handleDragEnd}
         />
       </div>
-    )
+    );
   }
 }
 
-class Nav extends React.Component {
-
-  addAnImage = () => {
-    console.log('addAnImage()');
-    let myObj = {
-         width:500,
-         height:500,
-         top:300,
-         left:200
+//Add keys
+class ImageMain extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: this.props.width,
+      height: this.props.height,
+      top: this.props.top,
+      left: this.props.left
     };
-
-    atmosData.push(myObj);
-    console.log(atmosData);
   }
 
-  addANote = () => {
-    console.log('addANote()')
-  }
-  render() {
-    return(
-
-      <nav className='nav'>
-        <button className='nav__btn nav__btn--image' onClick={this.addAnImage}>Add an image</button>
-        <button className='nav__btn nav__btn--note' onClick={this.addANote}>Add a note</button>
-      </nav>
-
-      )
-  }
-}
-
-class Data extends React.Component {
-  render() {
-    const inputData = atmosData.map((data) =>
-      <>
-        <Atmos width={data.width} height={data.height} top={data.top} left={data.left} />
-      </>
-    )
-    return(
-    <div>
-     {inputData}
-    </div>
-    )
-  }
-}
-
-class App extends React.Component {
   render() {
     return (
       <>
-       <Nav/>
-       <Data/>
+        <Atmos
+          width={this.state.width}
+          height={this.state.height}
+          top={this.state.top}
+          left={this.state.left}
+        />
       </>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+class App extends React.Component {
+  state = {
+    users: []
+  };
+
+  addImage = () => {
+    this.setState({
+      users: [
+        ...this.state.users,
+        <ImageMain width={100} height={100} top={200} left={200} />
+      ]
+    });
+  };
+
+  render() {
+    const projectInput = atmosData.map(project => (
+      <>
+        <ImageMain
+          width={project.width}
+          height={project.height}
+          top={project.top}
+          left={project.left}
+        />
+      </>
+    ));
+    return (
+      <div>
+        <nav className='nav'>
+          <button className='nav__btn nav__btn--image' onClick={this.addImage}>
+            Add an image
+          </button>
+          {/*<button className='nav__btn nav__btn--note' onClick={this.addNote}>Add a note</button>*/}
+        </nav>
+        {this.state.users} {projectInput}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
