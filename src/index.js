@@ -10,14 +10,14 @@ const atmosData = [
   {
    width:100,
    height:100,
-   top:200,
+   top:100,
    left:300
   },
   {
    width:100,
    height:100,
-   top:400,
-   left:300
+   top:200,
+   left:148
   }
 ];
 
@@ -111,20 +111,34 @@ class ImageMain extends React.Component {
 
 class App extends React.Component {
   state = {
-    users: []
+    userData: []
   };
 
   addImage = () => {
+
     this.setState({
-      users: [
-        ...this.state.users,
-        <ImageMain width={100} height={100} top={200} left={200} />
+      userData: [
+        ...this.state.userData
+        // <ImageMain width={100} height={100} top={200} left={200} />
       ]
     });
+
+
+    let newObj = {
+         width:100,
+         height:100,
+         top:200,
+         left:200
+    };
+
+    atmosData.push(newObj);
+
+    console.log(atmosData);
+
   };
 
   render() {
-    const projectInput = atmosData.map(project => (
+    const dataInput = atmosData.map(project => (
       <>
         <ImageMain
           width={project.width}
@@ -142,7 +156,7 @@ class App extends React.Component {
           </button>
           {/*<button className='nav__btn nav__btn--note' onClick={this.addNote}>Add a note</button>*/}
         </nav>
-        {this.state.users} {projectInput}
+        {this.state.userData} {dataInput}
       </div>
     );
   }

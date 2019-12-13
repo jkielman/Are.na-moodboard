@@ -1,2 +1,2 @@
 # atmos
-Moodboard using notes, and hrefs, src paths
+Moodboard using notes, hrefs and src paths
