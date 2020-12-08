@@ -7,12 +7,30 @@ import atmosData from "./components/atmosData";
 import Atmos from "./components/Atmos";
 import ImageMain from "./components/ImageMain";
 import Projects from "./components/Projects";
+import Arena from "are.na";
+
 import "./style.scss";
 
 class App extends React.Component {
   state = {
     userData: []
   };
+
+  componentDidMount() {
+
+    const arena = new Arena();
+
+    arena
+      .channel("arena-influences")
+      .get()
+      .then(chan => {
+        chan.contents.map(item => {
+          console.log(item.title);
+        });
+      })
+      .catch(err => console.log(err));
+
+  }
 
   addImage = () => {
     this.setState({
@@ -29,11 +47,20 @@ class App extends React.Component {
       left: 200
     };
 
+
+
+
     atmosData.push(newObj);
 
     console.log(atmosData);
 
   };
+
+  addNote = () => {
+
+    console.log('Add note');
+
+  }
 
   render() {
     return (
@@ -41,6 +68,9 @@ class App extends React.Component {
         <nav className="nav">
           <button className="nav__btn nav__btn--image" onClick={this.addImage}>
             Add an image
+          </button>
+          <button className="nav__btn nav__btn--note" onClick={this.addNote}>
+            Add a note
           </button>
         </nav>
         {this.state.userData}

@@ -10,6 +10,7 @@ const Project = props => {
         height={props.height}
         top={props.top}
         left={props.left}
+        image={props.image}
       />
     </>
   );

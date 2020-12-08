@@ -11,7 +11,8 @@ class ImageMain extends React.Component {
       width: this.props.width,
       height: this.props.height,
       top: this.props.top,
-      left: this.props.left
+      left: this.props.left,
+      image:this.props.image
     };
   }
 
