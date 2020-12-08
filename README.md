@@ -1,2 +1,2 @@
-# atmos
-Moodboard using notes, hrefs and src paths
+# Are.na moodboard
+Moodboard built around Are.na channels and blocks.
